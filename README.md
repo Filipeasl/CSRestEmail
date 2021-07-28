@@ -1,2 +1,2 @@
-# CSRestEmail
-C# rest e-mail service
+# csrestcrud
+A C#, .NET Core based REST CRUD.
