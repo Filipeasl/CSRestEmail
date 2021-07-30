@@ -81,20 +81,20 @@ namespace CSRest.Controllers
         [HttpPost]
         public async Task<ActionResult<EmailMsg>> PostEmailMsg(EmailMsg emailMsg)
         {
-            var sender = new SmtpSender(() => new SmtpClient(host:"smtp-mail.outlook.com")
+            var sender = new SmtpSender(() => new SmtpClient(host:emailMsg.eSmtpHost)
             {
                 UseDefaultCredentials = false,
                 Port = 587,
-                Credentials = new NetworkCredential("filipel@live.com", "littlebigplanet2"),
+                Credentials = new NetworkCredential(emailMsg.eLogin, emailMsg.ePassword),
                 EnableSsl = true,
             });
 
             Email.DefaultSender = sender;
 
             var email = await Email
-            .From("filipel@live.com", "Filipe")
-            .To("filipelas46@gmail.com", "Sue")
-            .Subject("Thanks!")
+            .From(emailMsg.eLogin, emailMsg.eName)
+            .To(emailMsg.eTo)
+            .Subject(emailMsg.eSubject)
             .Body(emailMsg.eBody)
             .SendAsync();
 
