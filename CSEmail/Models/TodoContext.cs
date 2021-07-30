@@ -10,7 +10,7 @@ namespace TodoApi.Models
         {
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        
 
         public DbSet<TodoApi.Models.EmailMsg> EmailMsg { get; set; }
     }

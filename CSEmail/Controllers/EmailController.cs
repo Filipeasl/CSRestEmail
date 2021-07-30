@@ -24,58 +24,6 @@ namespace CSRest.Controllers
             _context = context;
         }
 
-        // GET: api/Email
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmailMsg>>> GetEmailMsg()
-        {
-            return await _context.EmailMsg.ToListAsync();
-        }
-
-        // GET: api/Email/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<EmailMsg>> GetEmailMsg(long id)
-        {
-            var emailMsg = await _context.EmailMsg.FindAsync(id);
-
-            if (emailMsg == null)
-            {
-                return NotFound();
-            }
-
-            return emailMsg;
-        }
-
-        // PUT: api/Email/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmailMsg(long id, EmailMsg emailMsg)
-        {
-            if (id != emailMsg.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(emailMsg).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EmailMsgExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Email
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -102,22 +50,6 @@ namespace CSRest.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEmailMsg", new { id = emailMsg.Id }, emailMsg);
-        }
-
-        // DELETE: api/Email/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmailMsg(long id)
-        {
-            var emailMsg = await _context.EmailMsg.FindAsync(id);
-            if (emailMsg == null)
-            {
-                return NotFound();
-            }
-
-            _context.EmailMsg.Remove(emailMsg);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool EmailMsgExists(long id)
